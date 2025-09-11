@@ -7,13 +7,13 @@ const hbs = require("hbs")
 const multer = require('multer');
 const bcrypt = require("bcryptjs");
 const register = require("./models/register")
-const FileManager = require("./models/fileManager");
+const FileManager = require("./services/fileManager");
 const { getUsersWithNoPrivileges, getUsersWithPrivileges, removeUserById, updateUserModeById } = require("./models/manageUserAccess");
 const { auth, authAdmin, authFaculty } = require("./middleware/auth")
 const { upvoteFile, downvoteFile, removeUpvote, removeDownvote } = require("./models/rating");
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
-const logger = require('./models/logger');
+const logger = require('./utils/logger');
 require('dotenv').config();
 app.use(cookieParser())
 app.use(methodOverride('_method'));
@@ -29,16 +29,16 @@ app.set('views', path.join(__dirname, 'views'));
 const upload = multer();
 
 // Setting up partials
-const partialPath = path.join(__dirname, "../partials")
+const partialPath = path.join(__dirname, "views/partials")
 hbs.registerPartials(partialPath);
 
 // Connecting to database
-require("./conn")
+require("./config/db")
 const Users = require("./models/user")
 app.use(express.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 8000;
-const SUPPORT_MAIL = process.nextTick.SUPPORT_MAIL || "resourcebank.it@nitj.ac.in"
+const SUPPORT_MAIL = process.env.SUPPORT_MAIL || "resourcebank.it@nitj.ac.in"
 
 // Instantiate FileManager class
 const fileManager = FileManager.getInstance();
@@ -83,7 +83,7 @@ app.get("/changePassword", (req, res) => {
 app.get("/", auth, async (req, res) => {
     try {
         (async function () {
-            res.status(201).render("index")
+            res.status(200).render("index")
         })()
     } catch (error) {
         logger.error(error.message);
@@ -93,7 +93,7 @@ app.get("/", auth, async (req, res) => {
 app.get("/home", auth, async (req, res) => {
     try {
         (async function () {
-            res.status(201).render("index")
+            res.status(200).render("index")
         })()
     } catch (error) {
         logger.error(error.message);
@@ -418,7 +418,7 @@ app.post("/login", async (req, res) => {
                         let match = await bcrypt.compare(req.body.pass, val.password);
                         var userEncrypted = await bcrypt.hash(email, 10);
                         if (match) {
-                            return res.status(201).render("verifyOTP", { username: email, usernameEnc: userEncrypted, password: password, otp: otpGenSafe, registered: "Yes" })
+                            return res.status(200).render("verifyOTP", { username: email, usernameEnc: userEncrypted, password: password, otp: "Account exists", registered: "Yes" })
                         }
                         else {
                             return res.status(201).render("login", { problem: "InvalidPassword", username: email })
@@ -532,7 +532,7 @@ app.post("/home", async (req, res) => {
                 httpOnly: true
             });
             (async function () {
-                return res.status(201).render("index")
+                return res.status(200).render("index")
             })()
         }
     }
@@ -545,7 +545,7 @@ app.post("/home", async (req, res) => {
                 httpOnly: true
             });
             (async function () {
-                return res.status(201).render("index")
+                return res.status(200).render("index")
             })()
         }
         else if (!await bcrypt.compare(userOTP, otpGen)) {
@@ -568,7 +568,7 @@ app.post("/home", async (req, res) => {
                     .then(() => console.log("Saved successfully"))
                     .catch((err) => console.error(err));
                 (async function () {
-                    return res.status(201).render("index")
+                    return res.status(200).render("index")
                 })()
             }
             catch (err) {
