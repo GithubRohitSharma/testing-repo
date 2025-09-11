@@ -7,13 +7,13 @@ const hbs = require("hbs")
 const multer = require('multer');
 const bcrypt = require("bcryptjs");
 const register = require("./models/register")
-const FileManager = require("./models/fileManager");
+const FileManager = require("./services/fileManager");
 const { getUsersWithNoPrivileges, getUsersWithPrivileges, removeUserById, updateUserModeById } = require("./models/manageUserAccess");
 const { auth, authAdmin, authFaculty } = require("./middleware/auth")
 const { upvoteFile, downvoteFile, removeUpvote, removeDownvote } = require("./models/rating");
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
-const logger = require('./models/logger');
+const logger = require('./utils/logger');
 require('dotenv').config();
 app.use(cookieParser())
 app.use(methodOverride('_method'));
@@ -29,11 +29,11 @@ app.set('views', path.join(__dirname, 'views'));
 const upload = multer();
 
 // Setting up partials
-const partialPath = path.join(__dirname, "../partials")
+const partialPath = path.join(__dirname, "views/partials")
 hbs.registerPartials(partialPath);
 
 // Connecting to database
-require("./conn")
+require("./config/db")
 const Users = require("./models/user")
 app.use(express.urlencoded({ extended: false }));
 
