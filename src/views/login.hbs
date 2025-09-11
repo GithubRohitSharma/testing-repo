@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - IT Resource Bank</title>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed"
+        href="https://www.nitj.ac.in//images/ico/apple-touch-icon-57-precomposed.png" />
+    <link rel="shortcut icon" href="https://www.nitj.ac.in//images/ico/favicon.ico" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left Panel - Branding -->
+        <div class="branding-panel">
+            <div class="branding-content">
+                <div class="logo-section">
+                    <img src="img/NitJ_Logo.png" alt="NITJ Logo" class="logo">
+                    <div class="brand-text">
+                        <h1>NIT Jalandhar</h1>
+                        <h2>Information Technology</h2>
+                        <h3>Resource Bank</h3>
+                    </div>
+                </div>
+                <div class="brand-description">
+                    <p>Access comprehensive educational resources, course materials, and academic content curated for the IT department.</p>
+                </div>
+                <div class="features">
+                    <div class="feature-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Course Materials</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-book"></i>
+                        <span>Study Resources</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <span>Faculty Collaboration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel - Login Form -->
+        <div class="form-panel">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to access your account</p>
+                </div>
+                
+                <form id="loginForm" class="login-form" method="POST" action="/login" autocomplete="off">
+                    <input id="problem" value="{{problem}}" hidden />
+                    
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="receiversMail" class="form-label">Email Address</label>
+                        <div class="input-container">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input 
+                                id="receiversMail" 
+                                name="mail" 
+                                type="email" 
+                                value="{{username}}" 
+                                required
+                                placeholder="Enter your NITJ email"
+                                class="form-input"
+                            />
+                        </div>
+                        <p class="error-msg" id="error_box_user"></p>
+                    </div>
+                    
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="receiversPass" class="form-label">Password</label>
+                        <div class="input-container">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input 
+                                id="receiversPass" 
+                                name="pass" 
+                                type="password" 
+                                required
+                                placeholder="Enter your password"
+                                class="form-input"
+                            />
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <p class="error-msg" id="error_box_pass"></p>
+                    </div>
+                    
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="/changePassword" class="forgot-link">Forgot Password?</a>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" id="next" class="submit-btn">
+                        <span class="btn-text">Sign In</span>
+                        <div class="btn-loader" style="display: none;">
+                            <div class="spinner"></div>
+                        </div>
+                    </button>
+                </form>
+                
+                <!-- Sign Up Link -->
+                <div class="signup-section">
+                    <p>Don't have an account? <a href="/signup" class="signup-link">Create Account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/login.js"></script>
+</body>
+</html>

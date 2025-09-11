@@ -1,0 +1,87 @@
+/**
+ * Dropdown menu styling fixes
+ * Making dropdowns match the clean, modern aesthetic
+ */
+
+/* Reset and completely override all dropdown styling */
+.dropdown-menu {
+  display: none;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  min-width: 220px !important;
+  z-index: 1021 !important;
+}
+
+/* Force consistent styling for all dropdown items */
+.dropdown-menu .dropdown-item,
+.dropdown-menu a,
+.dropdown-menu span,
+.dropdown-menu .click_cursor {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  color: #333333 !important;
+  background-color: transparent !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  text-align: left !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  line-height: 1.5 !important;
+  transition: none !important;
+}
+
+/* Completely reset hover states */
+.dropdown-menu .dropdown-item:hover, 
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu a:hover,
+.dropdown-menu a:focus,
+.dropdown-menu span:hover,
+.dropdown-menu span:focus,
+.dropdown-menu .click_cursor:hover,
+.dropdown-menu .click_cursor:focus {
+  background-color: #f8f9fa !important;
+  color: #333333 !important;
+  text-decoration: none !important;
+}
+
+/* Remove any borders between items for a cleaner look */
+.dropdown-menu .dropdown-item:not(:last-child),
+.dropdown-menu a:not(:last-child),
+.dropdown-menu span:not(:last-child) {
+  border-bottom: none !important;
+}
+
+/* Ensure dropdown appears with proper styling when shown */
+.dropdown-menu.show {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* Remove any active/selected state styling */
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:active,
+.dropdown-menu a.active,
+.dropdown-menu a:active,
+.dropdown-menu span.active,
+.dropdown-menu span:active {
+  background-color: transparent !important;
+  color: #333333 !important;
+}
+
+/* Ensuring correct positioning */
+.dropdown-menu {
+  top: 100% !important;
+  left: 0 !important;
+  float: left !important;
+  margin: 0 !important;
+}

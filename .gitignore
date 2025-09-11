@@ -1,0 +1,8 @@
+# dependencies
+/node_modules
+
+#secrets
+/src/.env
+private_key.json
+/src/db
+src/logs

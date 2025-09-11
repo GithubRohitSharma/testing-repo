@@ -1,0 +1,48 @@
+/**
+ * Fix for horizontal scrolling issues
+ * Prevents any content from causing horizontal scrollbars
+ */
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Fix for containers that might be causing overflow */
+.container, 
+.container-fluid, 
+.container-lg, 
+.container-md, 
+.container-sm, 
+.container-xl, 
+.container-xxl {
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow-x: hidden;
+}
+
+/* Fix for any row elements that might be causing overflow */
+.row {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+}
+
+/* Fix for Bootstrap navbar expansion causing overflow */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    max-width: 100vw;
+  }
+}
+
+/* Fix for the animation elements */
+.page-transition,
+.scroll-progress,
+.bubble-container,
+.theme-toggle-wrapper {
+  max-width: 100vw;
+  overflow: hidden;
+}

@@ -1,0 +1,490 @@
+/* Theme Toggle System - dontboardme-inspired design
+ * Features:
+ * - Smooth transitions between themes
+ * - Animated toggle switch
+ * - Integrated bubble effects
+ */
+
+/* CSS Variables for Theme Colors */
+:root {
+  /* Light theme (default) */
+  --body-bg: #ffffff;
+  --text-color: #212529;
+  --heading-color: #0D6EFD;
+  --nav-bg: #ffffff;
+  --nav-shadow: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --input-bg: #f8f9fa;
+  --input-border: #ced4da;
+  --btn-primary-bg: #0D6EFD;
+  --btn-primary-color: #ffffff;
+  --btn-secondary-bg: #6c757d;
+  --btn-secondary-color: #ffffff;
+  --link-color: #0D6EFD;
+  --link-hover: #0a58ca;
+  --border-color: #dee2e6;
+  --table-border: #dee2e6;
+  --table-striped: rgba(0, 0, 0, 0.05);
+  --modal-bg: #ffffff;
+  --dropdown-bg: #ffffff;
+  --dropdown-hover: #f8f9fa;
+  --spinner-color: #0D6EFD;
+  --toggle-bg: #f0f0f0;
+  --toggle-circle: #ffffff;
+  --toggle-shadow: rgba(0, 0, 0, 0.1);
+  --primary: #0D6EFD;
+  --secondary: #06ADEF;
+  --success: #198754;
+  --info: #0dcaf0;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --btn-close-filter: none;
+  
+  /* Animation speeds */
+  --theme-transition: 0.5s;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --body-bg: #121212;
+  --text-color: #e0e0e0;
+  --heading-color: #4B6BFD;
+  --nav-bg: #1e1e1e;
+  --nav-shadow: rgba(0, 0, 0, 0.5);
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.2);
+  --input-bg: #2d2d2d;
+  --input-border: #444;
+  --btn-primary-bg: #4B6BFD;
+  --btn-primary-color: #ffffff;
+  --btn-secondary-bg: #555;
+  --btn-secondary-color: #e0e0e0;
+  --link-color: #4B6BFD;
+  --link-hover: #7B97FF;
+  --border-color: #444;
+  --table-border: #444;
+  --table-striped: rgba(255, 255, 255, 0.05);
+  --modal-bg: #1e1e1e;
+  --dropdown-bg: #1e1e1e;
+  --dropdown-hover: #2d2d2d;
+  --spinner-color: #4B6BFD;
+  --toggle-bg: #444;
+  --toggle-circle: #1e1e1e;
+  --toggle-shadow: rgba(0, 0, 0, 0.3);
+  --primary: #4B6BFD;
+  --secondary: #06ADEF;
+  --success: #25a56b;
+  --info: #0dcaf0;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --btn-close-filter: invert(1);
+}
+
+/* Smooth transitions for all elements */
+*, *::before, *::after {
+  transition: background-color var(--theme-transition) ease,
+              color var(--theme-transition) ease,
+              border-color var(--theme-transition) ease,
+              box-shadow var(--theme-transition) ease;
+}
+
+/* Exclude transitions from certain elements */
+.theme-toggle, .bubble, .page-transition, .ball-animation {
+  transition: none;
+}
+
+/* Fix text color only for the academic content that has white background in dark mode */
+[data-theme="dark"] .service-item .p-3 p,
+[data-theme="dark"] .interview_ans,
+[data-theme="dark"] #d1, [data-theme="dark"] #d2, [data-theme="dark"] #d3, 
+[data-theme="dark"] #d4, [data-theme="dark"] #d5,
+[data-theme="dark"] #ans1, [data-theme="dark"] #ans2, [data-theme="dark"] #ans3,
+[data-theme="dark"] #ans4, [data-theme="dark"] #ans5 {
+  color: #000000 !important;
+}
+
+/* Fix for DBMS, OS and other academic pages with white backgrounds */
+[data-theme="dark"] .row .col-lg-10 .service-item.text-left.click_cursor .p-3 p,
+[data-theme="dark"] .row .col-lg-10 .service-item.text-left.click_cursor .p-1 h5,
+[data-theme="dark"] .service-item.text-left h5 {
+  color: #000000 !important;
+}
+
+/* Fix for additional headings and text sections */
+[data-theme="dark"] .text-center h4:not(.section-title),
+[data-theme="dark"] .text-center h1:not(.my-3),
+[data-theme="dark"] .justify-content-lg-center a h5,
+[data-theme="dark"] .justify-content-lg-center .service-item h5 {
+  color: #000000 !important;
+}
+
+/* Add specific selector for "Final Touch" to keep it white */
+[data-theme="dark"] .section-title.bg-white.text-center.text-primary {
+  color: var(--primary) !important;
+}
+
+/* Theme Toggle Switch Styles - Simple Clean Design */
+.theme-toggle-wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide icons - we want a clean toggle without icons */
+.toggle-icons {
+  display: none;
+}
+
+.fa-sun, .fa-moon {
+  display: none;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Light mode toggle state (default) */
+.theme-toggle.light-mode {
+  background-color: #e0e0e0;
+}
+
+.theme-toggle.light-mode .toggle-circle {
+  transform: translateX(0);
+  background-color: #ffffff;
+}
+
+/* Dark mode toggle state */
+.theme-toggle.dark-mode {
+  background-color: #333333;
+}
+
+.theme-toggle.dark-mode .toggle-circle {
+  transform: translateX(30px);
+  background-color: #ffffff;
+}
+
+/* Simple animation for toggle when clicked */
+.theme-toggle.animate .toggle-circle {
+  animation: simpleBounce 0.3s ease;
+}
+
+@keyframes simpleBounce {
+  0%, 100% { transform: scale(1) translateX(var(--x, 0)); }
+  50% { transform: scale(1.05) translateX(var(--x, 0)); }
+}
+
+.theme-toggle.dark-mode.animate .toggle-circle {
+  --x: 30px;
+}
+
+.theme-toggle.light-mode.animate .toggle-circle {
+  --x: 0;
+}
+
+/* Remove bubbles - clean simple design */
+.bubble-container {
+  display: none;
+}
+
+.bubble {
+  display: none;
+}
+
+/* Theme transition effect for page loads */
+.theme-transition {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Theme changing animation */
+.theme-changing {
+  animation: theme-bounce 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@keyframes theme-bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+/* Dark mode styles for common elements */
+body {
+  background-color: var(--body-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* Force light mode background when no theme is set */
+body:not([data-theme]) {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
+
+/* Ensure light mode is properly applied */
+[data-theme="light"] body {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
+
+/* Force dark mode styles with high specificity */
+html[data-theme="dark"] body {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+}
+
+html[data-theme="dark"] .navbar {
+  background-color: #1e1e1e !important;
+}
+
+html[data-theme="dark"] .navbar-light {
+  background-color: #1e1e1e !important;
+}
+
+html[data-theme="dark"] .navbar-light .navbar-nav .nav-link {
+  color: #e0e0e0 !important;
+}
+
+html[data-theme="dark"] .navbar-nav .nav-item .nav-link {
+  color: #e0e0e0 !important;
+}
+
+html[data-theme="dark"] .navbar-nav .nav-item .dropdown-toggle {
+  color: #e0e0e0 !important;
+}
+
+/* Fix for faculty contact information in dark mode */
+[data-theme="dark"] .team-contact {
+  color: var(--text-color) !important;
+  background-color: var(--card-bg);
+}
+
+/* Fix for faculty name and role in dark mode */
+[data-theme="dark"] .team-item .text-center.p-4 h5,
+[data-theme="dark"] .team-item .text-center.p-4 small {
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .team-item {
+  background-color: #ffffff !important;
+}
+
+/* Fix for course listings in dark mode */
+[data-theme="dark"] .container-xxl .container .row.g-4 .col-lg-3,
+[data-theme="dark"] .container-xxl .container .row.g-4 .col-md-6,
+[data-theme="dark"] .container-xxl .container .row.g-4 p,
+[data-theme="dark"] #subjects .row p,
+[data-theme="dark"] #subjects h5,
+[data-theme="dark"] #lab_subjects .row p,
+[data-theme="dark"] #lab_subjects h5,
+[data-theme="dark"] #YTPlaylist .row p,
+[data-theme="dark"] #YTPlaylist h5 {
+  color: #000000 !important;
+}
+
+/* Make sure course content cards have white background in dark mode */
+[data-theme="dark"] .container-xxl .container .row.g-4 .col-lg-3 .service-item,
+[data-theme="dark"] .container-xxl .container .row.g-4 .col-md-6 .service-item {
+  background-color: #ffffff !important;
+}
+
+/* Fix main headings in dark mode - ensure they're white for better visibility */
+[data-theme="dark"] .container-xxl .container .text-center h1:not(.mb-0),
+[data-theme="dark"] .container h1:not(.mb-0),
+[data-theme="dark"] .container-xxl h1:not(.mb-0) {
+  color: #ffffff !important;
+}
+
+/* Fix for heading text in dark mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .section-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .section-title.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: var(--nav-bg) !important;
+  box-shadow: 0 0.125rem 0.25rem var(--nav-shadow) !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--text-color) !important;
+}
+
+/* Fix navigation menu items color */
+.navbar-nav .nav-item .nav-link {
+  color: var(--text-color) !important;
+}
+
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link:focus,
+.navbar-nav .nav-item .nav-link.active {
+  color: var(--text-color) !important;
+}
+
+/* Fix dropdown toggle color */
+.navbar-nav .nav-item .dropdown-toggle {
+  color: var(--text-color) !important;
+}
+
+.navbar-nav .nav-item .dropdown-toggle:hover,
+.navbar-nav .nav-item .dropdown-toggle:focus {
+  color: var(--text-color) !important;
+}
+
+/* Card styling */
+.card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: 0 0.125rem 0.25rem var(--card-shadow);
+}
+
+.card-header, .card-footer {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+/* Form controls */
+.form-control, .form-select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-color);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  border-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-color);
+}
+
+/* Tables */
+.table {
+  color: var(--text-color);
+  border-color: var(--table-border);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: var(--table-striped);
+}
+
+/* Modal */
+.modal-content {
+  background-color: var(--modal-bg);
+  border-color: var(--border-color);
+}
+
+.modal-header, .modal-footer {
+  border-color: var(--border-color);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background-color: var(--dropdown-bg);
+  border-color: var(--border-color);
+}
+
+.dropdown-item {
+  color: var(--text-color);
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: var(--dropdown-hover);
+}
+
+/* Close button for modals */
+.btn-close {
+  filter: var(--btn-close-filter);
+}
+
+/* Animated icon for the toggle */
+.sun-moon-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+}
+
+.sun-moon-icon .sun,
+.sun-moon-icon .moon {
+  position: absolute;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.sun-moon-icon .sun {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffc107;
+  border-radius: 50%;
+  transform: translateY(0);
+}
+
+.sun-moon-icon .moon {
+  top: -1px;
+  right: -1px;
+  width: 100%;
+  height: 100%;
+  background: #1e1e1e;
+  border-radius: 50%;
+  transform: translateX(100%);
+}
+
+.theme-toggle.dark-mode .sun-moon-icon .sun {
+  transform: translateY(-100%);
+}
+
+.theme-toggle.dark-mode .sun-moon-icon .moon {
+  transform: translateX(0);
+}

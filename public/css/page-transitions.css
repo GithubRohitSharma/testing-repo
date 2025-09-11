@@ -1,0 +1,187 @@
+/**
+ * Page Transitions and Additional Animations
+ * Designed to work alongside existing styles
+ */
+
+/* Page transition effect */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #06BBCC;
+    transform: translateY(100%);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+/* Card hover effects */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effects */
+.btn-primary {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(6, 187, 204, 0.2);
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn-primary:hover::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}
+
+/* Text reveal animations */
+.text-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.text-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Image reveal animations */
+.image-reveal {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.image-reveal.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered list animations */
+.stagger-list-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stagger-list-item.visible:nth-child(1) { transition-delay: 0.1s; }
+.stagger-list-item.visible:nth-child(2) { transition-delay: 0.2s; }
+.stagger-list-item.visible:nth-child(3) { transition-delay: 0.3s; }
+.stagger-list-item.visible:nth-child(4) { transition-delay: 0.4s; }
+.stagger-list-item.visible:nth-child(5) { transition-delay: 0.5s; }
+.stagger-list-item.visible:nth-child(6) { transition-delay: 0.6s; }
+
+.stagger-list-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Navbar underline animation */
+.navbar-nav .nav-item .nav-link {
+    position: relative;
+}
+
+.navbar-nav .nav-item .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #06BBCC;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover::after,
+.navbar-nav .nav-item .nav-link.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Custom dropdown animation */
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Scroll progress indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #06BBCC;
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+/* Section entrance animations */
+.section-entrance {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.section-entrance.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Carousel image zoom effect */
+.carousel-zoom {
+    overflow: hidden;
+}
+
+.carousel-zoom img {
+    transition: transform 6s ease;
+    transform: scale(1);
+}
+
+.carousel-zoom:hover img {
+    transform: scale(1.1);
+}

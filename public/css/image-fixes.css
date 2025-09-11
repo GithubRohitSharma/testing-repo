@@ -1,0 +1,98 @@
+/**
+ * Image and text visibility fixes
+ * Ensures proper display of images and text that might be affected by animations
+ */
+
+/* Fix for the about image specifically */
+.about-image-container {
+    min-height: 400px !important;
+    position: relative !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    overflow: hidden !important;
+}
+
+.about-image {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* General image fixes */
+img[loading="lazy"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: inline-block !important;
+}
+
+/* Set all position absolute images to be visible */
+img.position-absolute {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Make sure images inside carousels are visible */
+.owl-carousel img {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix for carousel text */
+.owl-carousel-item .position-absolute {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+}
+
+.owl-carousel-item h1, 
+.owl-carousel-item h5, 
+.owl-carousel-item p, 
+.owl-carousel-item a,
+.carousel-caption h1,
+.carousel-caption h5,
+.carousel-caption p {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* Make all text visible even if animations haven't triggered */
+h1, h2, h3, h4, h5, h6, p, a, span {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix for slideInDown and other animated classes */
+.animated.slideInDown,
+.animated.slideInLeft,
+.animated.slideInRight,
+.animated.fadeIn,
+.animated.bounceIn {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fix for owl carousel */
+.owl-carousel {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.owl-carousel .owl-stage-outer,
+.owl-carousel .owl-stage,
+.owl-carousel .owl-item {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+
+/* Override any WOW.js hidden elements */
+.wow {
+    visibility: visible !important;
+}

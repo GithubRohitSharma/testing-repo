@@ -1,0 +1,20 @@
+# Database Configuration
+MONGODB_URI=mongodb://localhost:27017/resourcebank
+
+# Gmail OAuth2 Configuration for Email Sending
+CLIENT_ID=your_gmail_client_id_here
+CLEINT_SECRET=your_gmail_client_secret_here
+REDIRECT_URI=https://developers.google.com/oauthplayground
+REFRESH_TOKEN=your_gmail_refresh_token_here
+
+# Support Email Address
+SUPPORT_MAIL=resourcebank.it@nitj.ac.in
+
+# JWT Secret for Authentication
+SECRET=your_jwt_secret_key_here
+
+# Forgot Password Token (can be any secure string)
+FORGOTPASS=your_forgot_password_token_here
+
+# Server Port (optional, defaults to 8000)
+PORT=8000 
