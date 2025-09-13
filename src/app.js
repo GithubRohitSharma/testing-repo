@@ -26,11 +26,6 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', "hbs");
 app.set('views', path.join(__dirname, 'views'));
 
-// Mount routers (currently empty; non-breaking)
-app.use('/auth', authRoutes);
-app.use('/', pagesRoutes);
-app.use('/admin', adminRoutes);
-app.use('/file', filesRoutes);
 
 const upload = multer();
 
@@ -39,6 +34,12 @@ const authRoutes = require('./routes/auth');
 const pagesRoutes = require('./routes/pages');
 const adminRoutes = require('./routes/admin');
 const filesRoutes = require('./routes/files');
+
+// Mount routers (currently empty; non-breaking)
+app.use('/auth', authRoutes);
+app.use('/', pagesRoutes);
+app.use('/admin', adminRoutes);
+app.use('/file', filesRoutes);
 
 // Setting up partials
 const partialPath = path.join(__dirname, "views/partials")
